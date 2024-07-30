@@ -26,6 +26,7 @@ export const CartProvider = ({ children }) => {
   const handleAddToCart = async (productId, quantity = 1) => {
     try {
       if (!token) {
+        alert("Please login first");
         throw new Error("No token found");
       }
       const isProductInCart = cartProducts.some(
@@ -33,7 +34,7 @@ export const CartProvider = ({ children }) => {
       );
 
       if (isProductInCart) {
-        console.log("Product is already in the cart");
+        alert("Product is already in the cart");
         return;
       }
       const response = await axios.post(
@@ -50,6 +51,7 @@ export const CartProvider = ({ children }) => {
         : [response.data.product];
 
       setCartProducts([...cartProducts, ...updatedCartProducts]);
+      alert("Product added to cart")
       console.log(response);
     } catch (error) {
       console.log("Error adding product to cart:", error);

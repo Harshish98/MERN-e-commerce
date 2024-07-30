@@ -40,7 +40,7 @@ export const WishlistProvider = ({ children }) => {
       );
 
       if (isProductInWishlist) {
-        console.log("Product is already in the wishlist");
+        alert("Product is already in the wishlist");
         return;
       }
       const response = await axios.post(
@@ -57,7 +57,7 @@ export const WishlistProvider = ({ children }) => {
       const updatedWishlistProducts = Array.isArray(newProduct)
         ? newProduct
         : [newProduct];
-
+      alert("Product added to wishlist")
       setWishlistProducts([...wishlistProducts, ...updatedWishlistProducts]);
       setWishlisted(true);
     } catch (error) {
