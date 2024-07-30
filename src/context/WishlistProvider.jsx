@@ -35,6 +35,10 @@ export const WishlistProvider = ({ children }) => {
 
   const addToWishlist = async (id) => {
     try {
+      if (!token) {
+        alert("Please login first");
+        throw new Error("No token found");
+      }
       const isProductInWishlist = wishlistProducts.some(
         (product) => product._id === id
       );
