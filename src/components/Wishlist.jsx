@@ -14,7 +14,7 @@ export const Wishlist = () => {
     <>
       <div className="pt-20">
         {getWishlistProducts.length !== 0 ? (
-          <div className="grid grid-cols-3 gap-8 w-2/3 mx-auto py-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 px-2 md:w-4/5 lg:gap-8 xl:w-2/3 mx-auto py-8">
             {getWishlistProducts.length !== 0
               ? getWishlistProducts.map((product, index) => {
                   return (

@@ -27,7 +27,7 @@ export const WishlistProvider = ({ children }) => {
         : [response.data.wishlist];
       console.log(updatedWishlistProducts);
       setGetWishlistProducts(updatedWishlistProducts);
-      setWishlistCount(getWishlistProducts.length);
+      setWishlistCount(updatedWishlistProducts.length);
     } catch (error) {
       console.log(error);
     }
@@ -39,6 +39,7 @@ export const WishlistProvider = ({ children }) => {
         alert("Please login first");
         throw new Error("No token found");
       }
+
       const isProductInWishlist = wishlistProducts.some(
         (product) => product._id === id
       );
@@ -47,6 +48,7 @@ export const WishlistProvider = ({ children }) => {
         alert("Product is already in the wishlist");
         return;
       }
+
       const response = await axios.post(
         `https://mern-e-commerce-server-lye5.onrender.com/add-to-wishlist/${id}`,
         {},
@@ -56,19 +58,28 @@ export const WishlistProvider = ({ children }) => {
           },
         }
       );
-      // console.log(response);
-      const newProduct = response.data.product;
+
+      console.log("Server response:", response.data);
+
+      if (!response.data || !response.data.wishlist) {
+        throw new Error("Invalid product data received from server");
+      }
+
+      const newProduct = response.data.wishlist;
       const updatedWishlistProducts = Array.isArray(newProduct)
         ? newProduct
         : [newProduct];
-      alert("Product added to wishlist")
+
+      alert("Product added to wishlist");
       setWishlistProducts([...wishlistProducts, ...updatedWishlistProducts]);
       setWishlisted(true);
     } catch (error) {
       console.log("Error while adding to wishlist", error);
+      alert("Failed to add product to wishlist");
       setWishlisted(false);
     }
   };
+
 
   const removeWishlistProduct = async (id) => {
     try {
@@ -83,6 +94,7 @@ export const WishlistProvider = ({ children }) => {
       setGetWishlistProducts(
         getWishlistProducts.filter((val) => val._id !== id)
       );
+      alert("Product removed from wishlist")
       console.log(getWishlistProducts);
     } catch (error) {
       console.log("Error while removing the wishlisted product", error);

@@ -7,7 +7,7 @@ import { ProductContext } from "../../context/ProductsProvider";
 export const ProductsPage = () => {
   const { products, fetchProducts } = useContext(ProductContext);
   const { handleAddToCart } = useContext(CartContext);
-  const { addToWishlist } = useContext(WishlistContext);
+  const { addToWishlist, fetchWishlistProducts } = useContext(WishlistContext);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [showFilters, setShowFilters] = useState(false)
 
@@ -22,6 +22,7 @@ export const ProductsPage = () => {
 
   useEffect(() => {
     fetchProducts();
+    fetchWishlistProducts()
   }, []);
 
   useEffect(() => {
