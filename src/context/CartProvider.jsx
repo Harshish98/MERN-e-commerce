@@ -7,10 +7,12 @@ export const CartContext = React.createContext();
 export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
   const [showCartProducts, setShowCartProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { token } = useContext(TokenContext);
 
   const fetchCartProducts = async () => {
+    setLoading(true);
     const response = await axios.get(
       `https://mern-e-commerce-server-lye5.onrender.com/cart-products`,
       {
@@ -20,7 +22,8 @@ export const CartProvider = ({ children }) => {
       }
     );
     setShowCartProducts(response.data.products);
-    console.log(response.data.products);
+    // console.log(response.data.products);
+    setLoading(false);
   };
 
   const handleAddToCart = async (productId, quantity = 1) => {
@@ -51,7 +54,7 @@ export const CartProvider = ({ children }) => {
         : [response.data.product];
 
       setCartProducts([...cartProducts, ...updatedCartProducts]);
-      alert("Product added to cart")
+      alert("Product added to cart");
       console.log(response);
     } catch (error) {
       console.log("Error adding product to cart:", error);
@@ -82,6 +85,7 @@ export const CartProvider = ({ children }) => {
         handleAddToCart,
         deleteCartProduct,
         showCartProducts,
+        loading
       }}
     >
       {children}

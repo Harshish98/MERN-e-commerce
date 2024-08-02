@@ -9,11 +9,13 @@ export const WishlistProvider = ({ children }) => {
   const [getWishlistProducts, setGetWishlistProducts] = useState([]);
   const [wishlisted, setWishlisted] = useState(false);
   const [wishlistCount, setWishlistCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const { token } = useContext(TokenContext);
 
   const fetchWishlistProducts = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         `https://mern-e-commerce-server-lye5.onrender.com/get-wishlist-product`,
         {
@@ -28,6 +30,7 @@ export const WishlistProvider = ({ children }) => {
       console.log(updatedWishlistProducts);
       setGetWishlistProducts(updatedWishlistProducts);
       setWishlistCount(updatedWishlistProducts.length);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -66,12 +69,11 @@ export const WishlistProvider = ({ children }) => {
       }
 
       const newProduct = response.data.wishlist;
-      const updatedWishlistProducts = Array.isArray(newProduct)
-        ? newProduct
-        : [newProduct];
+      const updatedWishlistProducts = [...getWishlistProducts, newProduct];
 
       alert("Product added to wishlist");
-      setWishlistProducts([...wishlistProducts, ...updatedWishlistProducts]);
+      setGetWishlistProducts(updatedWishlistProducts);
+      setWishlistCount(updatedWishlistProducts.length);
       setWishlisted(true);
     } catch (error) {
       console.log("Error while adding to wishlist", error);
@@ -79,7 +81,6 @@ export const WishlistProvider = ({ children }) => {
       setWishlisted(false);
     }
   };
-
 
   const removeWishlistProduct = async (id) => {
     try {
@@ -91,11 +92,13 @@ export const WishlistProvider = ({ children }) => {
           },
         }
       );
-      setGetWishlistProducts(
-        getWishlistProducts.filter((val) => val._id !== id)
+      const updatedWishlistProducts = getWishlistProducts.filter(
+        (val) => val._id !== id
       );
-      alert("Product removed from wishlist")
-      console.log(getWishlistProducts);
+      setGetWishlistProducts(updatedWishlistProducts);
+      setWishlistCount(updatedWishlistProducts.length);
+      alert("Product removed from wishlist");
+      // console.log(getWishlistProducts);
     } catch (error) {
       console.log("Error while removing the wishlisted product", error);
     }
@@ -110,6 +113,7 @@ export const WishlistProvider = ({ children }) => {
         removeWishlistProduct,
         wishlisted,
         wishlistCount,
+        loading
       }}
     >
       {children}
