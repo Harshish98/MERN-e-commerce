@@ -33,15 +33,15 @@ export const Contact = () => {
   };
   return (
     <>
-      <div className="pt-32 pb-24 flex justify-center text-[#2c4152] space-x-5 w-4/5 mx-auto">
-        <div className="space-y-4 px-12 py-10 shadow-md basis-1/4">
+      <div className="pt-20 md:pt-32 pb-24 md:flex justify-center text-[#2c4152] space-y-4 md:space-y-0 md:space-x-2 lg:space-x-5 w-11/12 lg:w-4/5 mx-auto">
+        <div className="space-y-4 px-5 xl:px-12 py-6 lg:py-10 shadow-md basis-1/3 xl:basis-1/4 rounded-md h-fit">
           <div>
-            <div className="flex space-x-2 mb-2">
+            <div className="flex items-center space-x-2 mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="size-6"
+                className="size-4 lg:size-6"
               >
                 <path
                   fillRule="evenodd"
@@ -49,31 +49,33 @@ export const Contact = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <p className="text-lg font-semibold">Call To Us</p>
+              <p className="lg:text-lg font-semibold">Call To Us</p>
             </div>
-            <p>We are available 24/7</p>
-            <p>+91-1234567890</p>
+            <p className="text-sm lg:text-base">We are available 24/7</p>
+            <p className="text-sm lg:text-base">+91-1234567890</p>
           </div>
           <div>
-            <div className="flex space-x-2 mb-2">
+            <div className="flex items-center space-x-2 mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="size-6"
+                className="size-4 lg:size-6"
               >
                 <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
                 <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
               </svg>
-              <p className="text-lg font-semibold">Write To Us</p>
+              <p className="lg:text-lg font-semibold">Write To Us</p>
             </div>
-            <p>Fill out the form and we will contact you within 24 hours.</p>
-            <p>customer@shopzy.com</p>
-            <p>support@shopzy.com</p>
+            <p className="text-sm lg:text-base">
+              Fill out the form and we will contact you within 24 hours.
+            </p>
+            <p className="text-sm lg:text-base">customer@shopzy.com</p>
+            <p className="text-sm lg:text-base">support@shopzy.com</p>
           </div>
         </div>
-        <div className="shadow-md px-3 py-6 basis-3/4">
-          <div className="mb-2 space-x-2">
+        <div className="shadow-md px-3 py-6 basis-3/4 rounded-md">
+          <div className="mb-2 space-y-2 xl:space-x-2">
             <input
               name="name"
               type="text"
@@ -81,7 +83,7 @@ export const Contact = () => {
               value={details.name}
               onChange={handleOnChange}
               required
-              className="bg-gray-100 py-2 px-3 w-[285px]"
+              className="bg-gray-100 py-2 px-3 w-full xl:w-[285px] rounded"
             />
             <input
               name="email"
@@ -90,7 +92,7 @@ export const Contact = () => {
               value={details.email}
               onChange={handleOnChange}
               required
-              className="bg-gray-100 py-2 px-3 w-[285px]"
+              className="bg-gray-100 py-2 px-3 w-full xl:w-[285px] rounded"
             />
             <input
               name="phone"
@@ -99,7 +101,7 @@ export const Contact = () => {
               value={details.phone}
               onChange={handleOnChange}
               required
-              className="bg-gray-100 py-2 px-3 w-[285px]"
+              className="bg-gray-100 py-2 px-3 w-full xl:w-[285px] rounded"
             />
           </div>
           <textarea
@@ -110,12 +112,12 @@ export const Contact = () => {
             onChange={handleOnChange}
             required
             rows={10}
-            className="bg-gray-100 px-3 row-4 w-full"
+            className="bg-gray-100 py-2 px-3 row-4 w-full rounded"
           />
           <div className="flex justify-end pt-4">
             <button
               onClick={handleSubmit}
-              className="bg-[#2c4152] text-white w-40 py-2 rounded"
+              className="bg-[#2c4152] text-white text-sm md:text-base w-40 py-2 rounded"
             >
               Send Message
             </button>

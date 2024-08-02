@@ -3,16 +3,18 @@ import { CartContext } from "../context/CartProvider";
 import { Link } from "react-router-dom";
 import { BuyNow } from "./BuyNow";
 import { Box, Skeleton } from "@mui/material";
+import { TokenContext } from "../context/TokenProvider";
 
 export const Cart = () => {
   const [quantities, setQuantities] = useState({});
   const { fetchCartProducts, deleteCartProduct, showCartProducts, loading } =
     useContext(CartContext);
+  const { token } = useContext(TokenContext);
 
   const shippingCost = 50;
 
   useEffect(() => {
-    fetchCartProducts()
+    fetchCartProducts();
   }, []);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export const Cart = () => {
   return (
     <>
       <div className="pt-20 md:pt-40 pb-20">
-        {loading ? (
+        {loading && token ? (
           <div className="md:w-4/5 lg:w-3/5 mx-auto px-3">
             {Array.from(new Array(3)).map((_, index) => (
               <Box key={index} sx={{ width: "100%", mb: 2 }}>
@@ -57,7 +59,7 @@ export const Cart = () => {
           </div>
         ) : (
           <>
-            {showCartProducts.length !== 0 ? (
+            {token && showCartProducts.length !== 0 ? (
               <div className="md:w-4/5 lg:w-3/5 mx-auto px-3">
                 <div className="">
                   {showCartProducts.map((val, index) => (

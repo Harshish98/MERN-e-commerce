@@ -31,7 +31,7 @@ export const UserDetails = () => {
 
   return (
     <div>
-      <p className="text-[#2c4152] capitalize font-semibold">
+      <p className="text-[#2c4152] capitalize font-semibold md:text-base">
         {userDetails.name}
       </p>
     </div>

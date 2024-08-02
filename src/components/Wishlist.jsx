@@ -17,7 +17,7 @@ export const Wishlist = () => {
   return (
     <>
       <div className="pt-20">
-        {loading ? (
+        {loading && token ? (
           <div className="grid grid-cols-2 md:grid-cols-3 px-2 md:w-4/5 lg:gap-8 xl:w-2/3 mx-auto py-8">
             {Array.from(new Array(3)).map((_, index) => (
               <Box key={index} sx={{ width: { xl: 300 } }}>

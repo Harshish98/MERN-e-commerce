@@ -7,6 +7,7 @@ export const CartContext = React.createContext();
 export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
   const [showCartProducts, setShowCartProducts] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const { token } = useContext(TokenContext);
@@ -22,7 +23,7 @@ export const CartProvider = ({ children }) => {
       }
     );
     setShowCartProducts(response.data.products);
-    // console.log(response.data.products);
+    setCartCount(response.data.products.length);
     setLoading(false);
   };
 
@@ -53,7 +54,15 @@ export const CartProvider = ({ children }) => {
         ? response.data.product
         : [response.data.product];
 
-      setCartProducts([...cartProducts, ...updatedCartProducts]);
+      setCartProducts((prevProducts) => [
+        ...prevProducts,
+        ...updatedCartProducts,
+      ]);
+      setShowCartProducts((prevProducts) => [
+        ...prevProducts,
+        ...updatedCartProducts,
+      ]);
+      setCartCount((prevCount) => prevCount + updatedCartProducts.length);
       alert("Product added to cart");
       console.log(response);
     } catch (error) {
@@ -71,7 +80,11 @@ export const CartProvider = ({ children }) => {
           },
         }
       );
-      setShowCartProducts(showCartProducts.filter((val) => val._id !== id));
+      setShowCartProducts((prevProducts) =>
+        prevProducts.filter((val) => val._id !== id)
+      );
+      setCartCount((prevCount) => prevCount - 1);
+      alert("Product removed from cart")
       console.log(showCartProducts);
     } catch (error) {
       console.log("Error while deleting the product form cart: ", error);
@@ -85,7 +98,8 @@ export const CartProvider = ({ children }) => {
         handleAddToCart,
         deleteCartProduct,
         showCartProducts,
-        loading
+        loading,
+        cartCount,
       }}
     >
       {children}
